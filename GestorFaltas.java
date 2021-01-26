@@ -10,10 +10,12 @@ import java.util.Scanner;
  *
  */
 public class GestorFaltas {
-     
+     private int pos;
+     private Estudiante[] estudiantes;
 
     public GestorFaltas(int n) {
-         
+      estudiantes = new Estudiante[n];
+      pos = 0;
     }
 
     /**
@@ -21,7 +23,7 @@ public class GestorFaltas {
      * false en otro caso
      */
     public boolean cursoCompleto() {
-        return false;
+        return pos == estudiantes.length; 
     }
 
     /**
@@ -37,7 +39,25 @@ public class GestorFaltas {
      *    
      */
     public void addEstudiante(Estudiante nuevo) {
+        for(int i = 0; i < pos; i++){
+        if(pos < estudiantes.length && buscarEstudiante(nuevo.getApellidos()) == -1 ) 
+        {
+            estudiantes[pos] = nuevo;
+            pos++;
         
+        }
+        else if(pos >= estudiantes.length){
+            System.out.println("Error, esta completo");
+        
+        
+        }
+        else if(buscarEstudiante(nuevo.getApellidos()) == 1){
+        
+            System.out.println("Estudiante repetido");
+        
+        }
+        
+        }
 
     }
 
@@ -51,8 +71,19 @@ public class GestorFaltas {
      *  
      */
     public int buscarEstudiante(String apellidos) {
-         
-        return 0;
+        for(int i = 0; i < pos; i++){
+            if(estudiantes[i].getApellidos().equalsIgnoreCase(apellidos)){
+            
+                return i;
+            
+            }
+        
+        }
+        
+        return -1;
+        
+        
+        
     }
 
     /**
@@ -61,8 +92,11 @@ public class GestorFaltas {
      *  
      */
     public String toString() {
-        
-        return null;
+       StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < pos; i++){
+            sb.append(estudiantes[i].toString());
+        }
+        return sb.toString();
 
     }
 
@@ -75,8 +109,15 @@ public class GestorFaltas {
      *  justificar también)
      */
     public void justificarFaltas(String apellidos, int faltas) {
-         
-
+        Estudiante justificado = estudiantes[buscarEstudiante(apellidos)];
+        
+        
+        
+        justificado.justificar(faltas);
+        
+        System.out.println("Nº de faltas justificadas " + faltas
+        + " a "  + justificado.getApellidos() + ","
+        + justificado.getNombre() + "\n") ;
     }
 
     /**

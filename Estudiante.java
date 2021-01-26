@@ -8,6 +8,7 @@ public class Estudiante {
     private String apellidos;
     private int faltasNoJustificadas;
     private int faltasJustificadas;
+    private Apercibimientos apercibimiento;
 
     /**
      *  
@@ -17,7 +18,10 @@ public class Estudiante {
      *  
      */
     public Estudiante(String lineaDatos) {
-         
+         String [] informacion = lineaDatos.split(SEPARADOR);
+         String str = "";
+         String Faltas_No_Justificadas = informacion[2].trim();
+         String Faltas_Justificadas = informacion[3].trim();
 
     }
 
@@ -94,7 +98,31 @@ public class Estudiante {
      */
     public String toString() {
         
-        return null;
+       String estudiante = "";
+        String nomCompleto = "Apellidos y Nombre: " + apellidos + " " + nombre + "\n";
+       
+        String Faltas_No_Justificadas = "Faltas No Justificadas: " + faltasNoJustificadas + "\n";
+        
+        String Faltas_Justificadas = "Faltas Justificadas: " + faltasJustificadas + "\n";
+        
+        String apercibimientos = "Apercibimientos: ";
+        if(faltasNoJustificadas < 10){
+            apercibimientos += "No tiene apercibimientos";
+        }
+        
+        else if(faltasNoJustificadas < 20){
+            apercibimientos += apercibimiento.DIEZ;
+        }
+        else if(faltasNoJustificadas < 30){
+            apercibimientos += apercibimiento.DIEZ + " " + apercibimiento.VEINTE;
+        }
+        else{
+            apercibimientos += apercibimiento.DIEZ + " " 
+                    + apercibimiento.VEINTE+ " " + apercibimiento.TREINTA;
+        }
+        estudiante += estudiante.format("%-25s", nomCompleto) + estudiante.format("%-25s", Faltas_No_Justificadas) + estudiante.format("%-25s", Faltas_Justificadas) + estudiante.format("%-25s", apercibimientos) + "\n";
+        return estudiante;
+
 
     }
 
